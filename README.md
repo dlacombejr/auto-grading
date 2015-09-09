@@ -1,15 +1,15 @@
-# Automated grade compiler for CogLab and LearningCataytics into BlackBoard (BB). 
+## Automated grade compiler for CogLab and LearningCataytics into BlackBoard. 
 
-## About
+### About
 
-This is a personalized repository for expediting grading into BB from external sites like CogLab or LearningCatalytics. The core of the problem is that the lists of students across these websites are not equivalent eliminating the possibility of simple copy and paste. The code in this repository allows for an automatic assignment of scores across different lists with high reliability. Some exceptions need to be made for students that use different first/last names across lists. If used, be sure to ask class to check validity of grades after posting. 
+This is a personalized repository for expediting grading into BlackBoard (BB) from external sites like CogLab or LearningCatalytics. The core of the problem is that the lists of students across these websites are not equivalent eliminating the possibility of simple copy and paste. The code in this repository allows for an automatic assignment of scores across different lists with high reliability. Some exceptions need to be made for students that use different first/last names across lists. If used, be sure to ask class to check validity of grades after posting. 
 
-## Files
+### Files
 
-grade_generator.m
-	- Reads in n files and generates output scores based on matches between names
+- `grade_generator.m`
+	- Reads in *n* files and generates outputs *n* - 1 files (one originally read file is just for names) with scores based on matches between names. Currenly only supports one score item per spreadsheet but could be easily expanded. 
 
-## Folders
+### Folders
 
 - `grading/`
 	- Folder where files to be graded are put
@@ -18,9 +18,9 @@ grade_generator.m
 	- Folder where output files are saved
 
 
-## Instructions
+### Instructions
 
-1. Add the new grading columns on BB
+1. Add the new assignments to be graded by creating their respective columns on BB
 2. Download each file that needs to be graded from their respective websites, including an up-to-date spreadsheet from BlackBoard that will be modified and uploaded
 3. Copy and change extension of BB file to `.xlsx` using `Save As` (the original download will be the one modified and updated later; this copy is just to retrieve the master name list)
 4. Clean up each of the to-be-graded spreadsheets such that the first and second (or only first for CogLab) columns are the names and the third (second for CogLab) column contains the scores; there should be no headers; the spreadsheet from BB can remain unmodified
