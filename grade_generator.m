@@ -19,6 +19,9 @@ for i = 1:nFiles
     % read xls file
     [num, str] = xlsread(fileNames(i).name);
     
+    % convert NaN to 0
+    num(isnan(num)) = 0; 
+    
     % separate first and last name for CogLab
     if size(str, 2) == 1
         temp = cell(size(str, 1), 2);
@@ -82,8 +85,12 @@ for f = 1:nFiles
             end
         end
         out.(field).name = files.(field).name;
-        out.(field).scores = comp_matrix * files.(field).score; 
-        out.(field).misses = files.(field).students{logical(abs(sum(comp_matrix, 1) - 1))};
+        out.(field).scores = comp_matrix * files.(field).score;
+        if sum(logical(abs(sum(comp_matrix, 1) - 1))) == 0
+            continue
+        elseif sum(logical(abs(sum(comp_matrix, 1) - 1))) > 0
+            out.(field).misses = files.(field).students{logical(abs(sum(comp_matrix, 1) - 1))};
+        end
         out.(field).Nmisses = sum(abs(sum(comp_matrix, 1) - 1)); 
     end
 end
