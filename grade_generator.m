@@ -41,7 +41,7 @@ for i = 1:nFiles
         for s = 1:max(i2)
             temp(s) = max(num(i2 == s)); 
         end
-        str = str(i1, :);
+        str = str(i1, :);   
         num = temp; 
     end
     
