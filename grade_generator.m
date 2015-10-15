@@ -67,19 +67,30 @@ end
 
 % create comparision matrix
 out = struct;           % initialize output structure
-n1 = 'Vacca-Capecci';   % exception name in master_names
-n2 = 'Capecci-Moore';   % exception name in LC / BB
+n1 = 'Vacca-Capecci';   % exceptional last name in master_names
+n2 = 'Capecci-Moore';   % exceptional last name in LC / BB
+n3 = 'Alexander';       % exceptional first name in master_names
+n4 = 'Devon';           % exceptional first name in LC / BB
 for f = 1:nFiles
     field = ['f', num2str(f)];
     if length(files.(field).name) ~= largestFileName
         comp_matrix = []; 
         for i = 1:size(master_names, 1)
             for j = 1:size(files.(field).students, 1)
-                comp_matrix(i, j) = (strncmpi(master_names{i, 1}, files.(field).students{j, 1}, 3) && ...
-                    strncmpi(master_names{i, 2}, files.(field).students{j, 2}, 3));
-                % catch exception 
+                comp_matrix(i, j) = ( ...
+                    strncmpi(master_names{i, 1}, ...
+                             files.(field).students{j, 1}, 3) && ...
+                    strncmpi(master_names{i, 2}, ...
+                             files.(field).students{j, 2}, 3) ...
+                );
+                % catch exception # 1
                 if (strcmp(master_names{i, 1}, n2) && ...
                     strcmp(files.(field).students{j, 1}, n1))
+                    comp_matrix(i, j) = 1; 
+                end
+                % catch exception # 2
+                if (strcmp(master_names{i, 2}, n3) && ...
+                    strcmp(files.(field).students{j, 2}, n4))
                     comp_matrix(i, j) = 1; 
                 end
             end
@@ -89,7 +100,9 @@ for f = 1:nFiles
         if sum(logical(abs(sum(comp_matrix, 1) - 1))) == 0
             continue
         elseif sum(logical(abs(sum(comp_matrix, 1) - 1))) > 0
-            out.(field).misses = files.(field).students{logical(abs(sum(comp_matrix, 1) - 1))};
+            out.(field).misses = files.(field).students{ ...
+                logical(abs(sum(comp_matrix, 1) - 1)) ...
+            };
         end
         out.(field).Nmisses = sum(abs(sum(comp_matrix, 1) - 1)); 
     end
@@ -99,6 +112,7 @@ end
 outpath = 'graded/';
 for i = 1:length(fieldnames(out))
     field = ['f', num2str(i)];
-    csvwrite(fullfile(outpath, [out.(field).name, '_out']), out.(field).scores); 
+    csvwrite(fullfile(outpath, [out.(field).name, '_out']), ...
+             out.(field).scores); 
 end
 
