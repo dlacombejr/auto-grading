@@ -23,7 +23,11 @@ This is a personalized repository for expediting grading into BlackBoard (BB) fr
 1. Add the new assignments to be graded by creating their respective columns on BB
 2. Download each file that needs to be graded from their respective websites, including an up-to-date spreadsheet from BlackBoard that will be modified and uploaded
 3. Copy and change extension of BB file to `.xlsx` using `Save As` (the original download will be the one modified and updated later; this copy is just to retrieve the master name list)
-4. Clean up each of the to-be-graded spreadsheets such that the first and second (or only first for CogLab) columns are the names and the third (second for CogLab) column contains the scores; there should be no headers; the spreadsheet from BB can remain unmodified (NOTE: the current implementation can only handle a single grade column per spreadsheet; also the code is buggy if there are empty values at the top or bottom of grade columns - replace with zeros for best performance; script also expects BB file to be last, so must replace first letter with 'x' so it is read last)
+4. Clean up each of the to-be-graded spreadsheets such that the first and second (or only first for CogLab) columns are the names and the third (second for CogLab) column contains the scores; there should be no headers; the spreadsheet from BB can remain unmodified 
+	- Notes on cleaning up:
+		- The current implementation can only handle a single grade column per spreadsheet
+		- The code is buggy if there are empty values at the top or bottom of grade columns - replace with zeros for best performance
+		- The code also expects BB file to be last, so must replace first letter with 'x' to ensure it is read last
 5. Place all of the aforementioned spreadsheets (except original `.xls` BB spreadsheet) into `grading/`
 6. Run `grade_generator.m`
 7. Open the saved `.csv` files and copy the generated grades into the original `.xls` BB spreadsheet
